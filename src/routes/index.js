@@ -1,14 +1,15 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
 
+import MyRoute from './MyRoute';
 import Login from '../pages/Login';
 import Page404 from '../pages/Page404';
 
 const Router = function Router() {
     return (
         <Routes>
-            <Route exact path="/" element={<Login />} />
-            <Route path="*" element={<Page404 />} />
+            <MyRoute exact path="/" element={<Login />} />
+            <MyRoute path="*" element={<Page404 />} />
         </Routes>
     );
 };
