@@ -1,13 +1,13 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const MyRoute = function MyRoute({ component: Component, isClosed, ...rest }) {
+const PrivateOutlet = function PrivateOutlet({ isClosed, ...rest }) {
     const isLoggedIn = false;
 
     if (isClosed && !isLoggedIn) {
         return (
-            <Redirect
+            <Navigate
                 to={{
                     pathname: '/login',
                     state: { prevPath: rest.location.pathname },
@@ -17,17 +17,15 @@ const MyRoute = function MyRoute({ component: Component, isClosed, ...rest }) {
     }
 
     // eslint-disable-next-line react/jsx-props-no-spreading
-    return <Route {...rest} element={<Component />} />;
+    return <Outlet />;
 };
 
-MyRoute.defaultProps = {
+PrivateOutlet.defaultProps = {
     isClosed: false,
 };
 
-MyRoute.propTypes = {
-    component: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
-        .isRequired,
+PrivateOutlet.propTypes = {
     isClosed: PropTypes.bool,
 };
 
-export default MyRoute;
+export default PrivateOutlet;
